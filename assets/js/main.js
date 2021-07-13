@@ -1,16 +1,17 @@
 const formulario = document.getElementById('formulario');
 
-
-
-
-
 formulario.addEventListener('submit',(e)=>{
   e.preventDefault();
   const inputPeso = e.target.querySelector('#peso');
   const inpuAltura = e.target.querySelector('#altura');
 
-  const peso = Number(inputPeso.value);
-  const altura = Number(inpuAltura.value);
+  const stringPeso = inputPeso.value.replace(',','.');
+  const stringAltura = inpuAltura.value.replace(',','.');
+  
+  const peso = Number(stringPeso);
+  const altura = Number(stringAltura);
+  console.log(stringPeso);
+  console.log(peso);
 
   if(!peso){
     setResultado("Peso inválido",false);
@@ -24,7 +25,7 @@ formulario.addEventListener('submit',(e)=>{
   const nivelImc = getNivelImc(imc);
   const msg = `Seu imc é ${imc}, (${nivelImc})`
   setResultado(msg,true);
-})
+});
 
 function getNivelImc(imc){
   const nivel = ['Abaixo do peso', 'Peso normal', 'Sobrepeso', 'Obesidade grau 1',
@@ -43,7 +44,6 @@ function getImc(peso,altura){
   return imc.toFixed(2);
 }
 
-
 function criaP(){
   const p = document.createElement('p')
   return p; 
@@ -61,5 +61,4 @@ function setResultado(msg,isValid){
   }
   p.innerHTML = msg;
   resultado.appendChild(p);
-
 }
